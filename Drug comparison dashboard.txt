@@ -1,0 +1,455 @@
+{
+    "chunks": [
+        {
+            "type": "txt",
+            "chunk_number": 1,
+            "lines": [
+                {
+                    "line_number": 1,
+                    "text": ""
+                },
+                {
+                    "line_number": 2,
+                    "text": "import streamlit as st"
+                },
+                {
+                    "line_number": 3,
+                    "text": "import pandas as pd"
+                },
+                {
+                    "line_number": 4,
+                    "text": "import matplotlib.pyplot as plt"
+                },
+                {
+                    "line_number": 5,
+                    "text": "import random"
+                },
+                {
+                    "line_number": 6,
+                    "text": ""
+                },
+                {
+                    "line_number": 7,
+                    "text": "# Synthetic drug data"
+                },
+                {
+                    "line_number": 8,
+                    "text": "drug_data = {"
+                },
+                {
+                    "line_number": 9,
+                    "text": "\"Atorvastatin\": {\"dosages\": [\"10mg\", \"20mg\"], \"generic_price\": 15, \"brand_price\": 45},"
+                },
+                {
+                    "line_number": 10,
+                    "text": "\"Lisinopril\": {\"dosages\": [\"10mg\", \"20mg\"], \"generic_price\": 10, \"brand_price\": 30},"
+                },
+                {
+                    "line_number": 11,
+                    "text": "\"Metformin\": {\"dosages\": [\"500mg\", \"1000mg\"], \"generic_price\": 12, \"brand_price\": 35},"
+                },
+                {
+                    "line_number": 12,
+                    "text": "\"Omeprazole\": {\"dosages\": [\"20mg\", \"40mg\"], \"generic_price\": 14, \"brand_price\": 40},"
+                },
+                {
+                    "line_number": 13,
+                    "text": "\"Amlodipine\": {\"dosages\": [\"5mg\", \"10mg\"], \"generic_price\": 11, \"brand_price\": 32}"
+                },
+                {
+                    "line_number": 14,
+                    "text": "}"
+                },
+                {
+                    "line_number": 15,
+                    "text": ""
+                },
+                {
+                    "line_number": 16,
+                    "text": "# Synthetic therapeutic alternatives"
+                },
+                {
+                    "line_number": 17,
+                    "text": "therapeutic_alternatives = {"
+                },
+                {
+                    "line_number": 18,
+                    "text": "\"Atorvastatin\": [(\"Simvastatin\", 12), (\"Rosuvastatin\", 18)],"
+                },
+                {
+                    "line_number": 19,
+                    "text": "\"Lisinopril\": [(\"Enalapril\", 9), (\"Ramipril\", 11)],"
+                },
+                {
+                    "line_number": 20,
+                    "text": "\"Metformin\": [(\"Glipizide\", 10), (\"Glyburide\", 13)],"
+                },
+                {
+                    "line_number": 21,
+                    "text": "\"Omeprazole\": [(\"Pantoprazole\", 13), (\"Esomeprazole\", 16)],"
+                },
+                {
+                    "line_number": 22,
+                    "text": "\"Amlodipine\": [(\"Nifedipine\", 10), (\"Felodipine\", 12)]"
+                },
+                {
+                    "line_number": 23,
+                    "text": "}"
+                },
+                {
+                    "line_number": 24,
+                    "text": ""
+                },
+                {
+                    "line_number": 25,
+                    "text": "# Synthetic pharmacy data"
+                },
+                {
+                    "line_number": 26,
+                    "text": "pharmacies = [\"PharmaOne\", \"HealthPlus\", \"MediCare\"]"
+                },
+                {
+                    "line_number": 27,
+                    "text": ""
+                },
+                {
+                    "line_number": 28,
+                    "text": "# Sidebar for role selection"
+                },
+                {
+                    "line_number": 29,
+                    "text": "st.sidebar.title(\"\ud83d\udd10 User Role\")"
+                },
+                {
+                    "line_number": 30,
+                    "text": "role = st.sidebar.selectbox(\"Select your role\", [\"Patient\", \"Doctor\", \"Pharmacist\", \"Insurance Analyst\"])"
+                },
+                {
+                    "line_number": 31,
+                    "text": ""
+                },
+                {
+                    "line_number": 32,
+                    "text": "# Sidebar for drug selection"
+                },
+                {
+                    "line_number": 33,
+                    "text": "st.sidebar.title(\"\ud83d\udc8a Drug Selection\")"
+                },
+                {
+                    "line_number": 34,
+                    "text": "selected_drugs = st.sidebar.multiselect(\"Select Drugs\", list(drug_data.keys()))"
+                },
+                {
+                    "line_number": 35,
+                    "text": ""
+                },
+                {
+                    "line_number": 36,
+                    "text": "drug_selections = {}"
+                },
+                {
+                    "line_number": 37,
+                    "text": "for drug in selected_drugs:"
+                },
+                {
+                    "line_number": 38,
+                    "text": "dosage = st.sidebar.selectbox(f\"Select Dosage for {drug}\", drug_data[drug][\"dosages\"], key=drug)"
+                },
+                {
+                    "line_number": 39,
+                    "text": "drug_selections[drug] = dosage"
+                },
+                {
+                    "line_number": 40,
+                    "text": ""
+                },
+                {
+                    "line_number": 41,
+                    "text": "st.title(\"Integrated Drug Cost Comparison Dashboard\")"
+                },
+                {
+                    "line_number": 42,
+                    "text": ""
+                },
+                {
+                    "line_number": 43,
+                    "text": "# Display price comparison table"
+                },
+                {
+                    "line_number": 44,
+                    "text": "if drug_selections and role in [\"Patient\", \"Doctor\", \"Pharmacist\", \"Insurance Analyst\"]:"
+                },
+                {
+                    "line_number": 45,
+                    "text": "st.subheader(\"\ud83d\udc8a Price Comparison Across Pharmacies\")"
+                },
+                {
+                    "line_number": 46,
+                    "text": "comparison_rows = []"
+                },
+                {
+                    "line_number": 47,
+                    "text": "for drug, dosage in drug_selections.items():"
+                },
+                {
+                    "line_number": 48,
+                    "text": "for pharmacy in pharmacies:"
+                },
+                {
+                    "line_number": 49,
+                    "text": "generic_price = drug_data[drug][\"generic_price\"] + random.randint(-2, 2)"
+                },
+                {
+                    "line_number": 50,
+                    "text": "brand_price = drug_data[drug][\"brand_price\"] + random.randint(-5, 5)"
+                },
+                {
+                    "line_number": 51,
+                    "text": "comparison_rows.append({"
+                },
+                {
+                    "line_number": 52,
+                    "text": "\"Drug\": drug,"
+                },
+                {
+                    "line_number": 53,
+                    "text": "\"Dosage\": dosage,"
+                },
+                {
+                    "line_number": 54,
+                    "text": "\"Pharmacy\": pharmacy,"
+                },
+                {
+                    "line_number": 55,
+                    "text": "\"Generic Price ($)\": generic_price,"
+                },
+                {
+                    "line_number": 56,
+                    "text": "\"Brand Price ($)\": brand_price"
+                },
+                {
+                    "line_number": 57,
+                    "text": "})"
+                },
+                {
+                    "line_number": 58,
+                    "text": "df_comparison = pd.DataFrame(comparison_rows)"
+                },
+                {
+                    "line_number": 59,
+                    "text": "df_comparison.reset_index(drop=True, inplace=True)"
+                },
+                {
+                    "line_number": 60,
+                    "text": "df_comparison.insert(0, \"Sr. No.\", range(1, len(df_comparison) + 1))"
+                },
+                {
+                    "line_number": 61,
+                    "text": "st.dataframe(df_comparison)"
+                },
+                {
+                    "line_number": 62,
+                    "text": ""
+                },
+                {
+                    "line_number": 63,
+                    "text": "# Generic vs Brand Visualization"
+                },
+                {
+                    "line_number": 64,
+                    "text": "if drug_selections and role in [\"Patient\", \"Doctor\", \"Pharmacist\"]:"
+                },
+                {
+                    "line_number": 65,
+                    "text": "st.subheader(\"\ud83d\udcca Generic vs Brand Price Comparison\")"
+                },
+                {
+                    "line_number": 66,
+                    "text": "for drug in drug_selections:"
+                },
+                {
+                    "line_number": 67,
+                    "text": "generic = drug_data[drug][\"generic_price\"]"
+                },
+                {
+                    "line_number": 68,
+                    "text": "brand = drug_data[drug][\"brand_price\"]"
+                },
+                {
+                    "line_number": 69,
+                    "text": "fig, ax = plt.subplots()"
+                },
+                {
+                    "line_number": 70,
+                    "text": "ax.bar([\"Generic\", \"Brand\"], [generic, brand], color=[\"green\", \"red\"])"
+                },
+                {
+                    "line_number": 71,
+                    "text": "ax.set_title(f\"{drug} Price Comparison\")"
+                },
+                {
+                    "line_number": 72,
+                    "text": "ax.set_ylabel(\"Price ($)\")"
+                },
+                {
+                    "line_number": 73,
+                    "text": "st.pyplot(fig)"
+                },
+                {
+                    "line_number": 74,
+                    "text": ""
+                },
+                {
+                    "line_number": 75,
+                    "text": "# Savings Estimator"
+                },
+                {
+                    "line_number": 76,
+                    "text": "if drug_selections and role in [\"Patient\", \"Insurance Analyst\"]:"
+                },
+                {
+                    "line_number": 77,
+                    "text": "st.subheader(\"\ud83d\udcb0 Estimated Savings\")"
+                },
+                {
+                    "line_number": 78,
+                    "text": "savings_rows = []"
+                },
+                {
+                    "line_number": 79,
+                    "text": "for drug in drug_selections:"
+                },
+                {
+                    "line_number": 80,
+                    "text": "generic = drug_data[drug][\"generic_price\"]"
+                },
+                {
+                    "line_number": 81,
+                    "text": "brand = drug_data[drug][\"brand_price\"]"
+                },
+                {
+                    "line_number": 82,
+                    "text": "monthly_savings = brand - generic"
+                },
+                {
+                    "line_number": 83,
+                    "text": "annual_savings = monthly_savings * 12"
+                },
+                {
+                    "line_number": 84,
+                    "text": "savings_rows.append({"
+                },
+                {
+                    "line_number": 85,
+                    "text": "\"Drug\": drug,"
+                },
+                {
+                    "line_number": 86,
+                    "text": "\"Monthly Savings ($)\": monthly_savings,"
+                },
+                {
+                    "line_number": 87,
+                    "text": "\"Annual Savings ($)\": annual_savings"
+                },
+                {
+                    "line_number": 88,
+                    "text": "})"
+                },
+                {
+                    "line_number": 89,
+                    "text": "df_savings = pd.DataFrame(savings_rows)"
+                },
+                {
+                    "line_number": 90,
+                    "text": "df_savings.reset_index(drop=True, inplace=True)"
+                },
+                {
+                    "line_number": 91,
+                    "text": "df_savings.insert(0, \"Sr. No.\", range(1, len(df_savings) + 1))"
+                },
+                {
+                    "line_number": 92,
+                    "text": "st.dataframe(df_savings)"
+                },
+                {
+                    "line_number": 93,
+                    "text": ""
+                },
+                {
+                    "line_number": 94,
+                    "text": "# Therapeutic Alternatives Suggestion"
+                },
+                {
+                    "line_number": 95,
+                    "text": "if drug_selections and role in [\"Doctor\", \"Pharmacist\"]:"
+                },
+                {
+                    "line_number": 96,
+                    "text": "st.subheader(\"\ud83e\udde0 Therapeutic Alternatives Suggestion\")"
+                },
+                {
+                    "line_number": 97,
+                    "text": "for drug in drug_selections:"
+                },
+                {
+                    "line_number": 98,
+                    "text": "st.markdown(f\"**Alternatives for {drug}:**\")"
+                },
+                {
+                    "line_number": 99,
+                    "text": "alt_rows = []"
+                },
+                {
+                    "line_number": 100,
+                    "text": "original_price = drug_data[drug][\"generic_price\"]"
+                },
+                {
+                    "line_number": 101,
+                    "text": "for alt_drug, alt_price in therapeutic_alternatives.get(drug, []):"
+                },
+                {
+                    "line_number": 102,
+                    "text": "savings = original_price - alt_price"
+                },
+                {
+                    "line_number": 103,
+                    "text": "alt_rows.append({"
+                },
+                {
+                    "line_number": 104,
+                    "text": "\"Alternative Drug\": alt_drug,"
+                },
+                {
+                    "line_number": 105,
+                    "text": "\"Synthetic Price ($)\": alt_price,"
+                },
+                {
+                    "line_number": 106,
+                    "text": "\"Estimated Savings ($)\": savings"
+                },
+                {
+                    "line_number": 107,
+                    "text": "})"
+                },
+                {
+                    "line_number": 108,
+                    "text": "df_alt = pd.DataFrame(alt_rows)"
+                },
+                {
+                    "line_number": 109,
+                    "text": "df_alt.reset_index(drop=True, inplace=True)"
+                },
+                {
+                    "line_number": 110,
+                    "text": "df_alt.insert(0, \"Sr. No.\", range(1, len(df_alt) + 1))"
+                },
+                {
+                    "line_number": 111,
+                    "text": "st.dataframe(df_alt)"
+                }
+            ],
+            "token_count": 674
+        }
+    ]
+}
